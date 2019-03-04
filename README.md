@@ -4,10 +4,10 @@ Android Tooltip
 Create Toast like tooltips, physical targets can be specified, or even points on screen.
 Many additional features and customizations. Just look at the samples Activities.
 
-[![Build Status](https://travis-ci.org/sephiroth74/android-target-tooltip.svg?branch=master)](https://travis-ci.org/sephiroth74/android-target-tooltip)
+[![Build Status](https://travis-ci.org/GlueHome/android-target-tooltip-logless.svg?branch=master)](https://travis-ci.org/GlueHome/android-target-tooltip-logless)
 
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/it.sephiroth.android.library.targettooltip/target-tooltip-library/badge.svg)](https://maven-badges.herokuapp.com/maven-central/it.sephiroth.android.library.targettooltip/target-tooltip-library)
-[![](https://jitpack.io/v/sephiroth74/android-target-tooltip.svg)](https://jitpack.io/#sephiroth74/android-target-tooltip)
+[![](https://jitpack.io/v/GlueHome/android-target-tooltip-logless.svg)](https://jitpack.io/#GlueHome/android-target-tooltip-logless)
 
 Installation
 ===
@@ -15,7 +15,7 @@ Installation
 ## Maven
 
 ```gradle
-compile 'it.sephiroth.android.library.targettooltip:target-tooltip-library:**version**'
+implementation 'com.github.GlueHome:android-target-tooltip-logless:target-tooltip-library:**version**'
 ```	
 	
 ## JitPack
@@ -35,11 +35,11 @@ allprojects {
 
 ```gradle
 dependencies {
-        implementation 'com.github.sephiroth74:android-target-tooltip:Tag'
+  implementation 'com.github.GlueHome:android-target-tooltip-logless:target-tooltip-library:+'
 }
 ```
 
-Get the latest version  on [JitPack](https://jitpack.io/#sephiroth74/android-target-tooltip)	
+Get the latest version  on [JitPack](https://jitpack.io/#GlueHome/android-target-tooltip-logless)	
 
 
 Usage
@@ -115,7 +115,7 @@ Screenshots
 ![Screen shot](./screenshots/video2.gif)
 
 
-[1]: https://github.com/sephiroth74/android-target-tooltip/blob/master/library/src/main/java/it/sephiroth/android/library/tooltip/Tooltip.java#L1471
+[1]: https://github.com/GlueHome/android-target-tooltip-logless/blob/master/library/src/main/java/it/sephiroth/android/library/tooltip/Tooltip.java#L1471
 
 
 License
