@@ -3,7 +3,6 @@ package it.sephiroth.android.library.xtooltip
 import android.content.Context
 import android.graphics.Typeface
 import android.util.LruCache
-import timber.log.Timber
 
 /**
  * Created by alessandro crugnola on 12/12/15.
@@ -33,7 +32,6 @@ object Typefaces {
                     typeface = Typeface.createFromAsset(c.assets, assetPath)
                     FONT_CACHE.put(assetPath, typeface)
                 } catch (e: Exception) {
-                    Timber.e("Could not get typeface '$assetPath' because ${e.message}")
                     return null
                 }
             }

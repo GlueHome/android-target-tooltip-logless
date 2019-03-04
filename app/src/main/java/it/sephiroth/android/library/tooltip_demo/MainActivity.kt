@@ -8,7 +8,6 @@ import it.sephiroth.android.library.xtooltip.ClosePolicy
 import it.sephiroth.android.library.xtooltip.Tooltip
 import it.sephiroth.android.library.xtooltip.Typefaces
 import kotlinx.android.synthetic.main.content_main.*
-import timber.log.Timber
 
 
 class MainActivity : AppCompatActivity() {
@@ -33,8 +32,6 @@ class MainActivity : AppCompatActivity() {
             val text =
                     if (text_tooltip.text.isNullOrEmpty()) text_tooltip.hint else text_tooltip.text!!.toSpannable()
 
-            Timber.v("gravity: $gravity")
-            Timber.v("closePolicy: $closePolicy")
 
             tooltip?.dismiss()
 
@@ -80,7 +77,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
-        Timber.i("onDestroy")
         super.onDestroy()
         tooltip?.dismiss()
     }

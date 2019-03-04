@@ -24,7 +24,6 @@ import androidx.annotation.StyleRes
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.view.setPadding
-import timber.log.Timber
 import java.lang.ref.WeakReference
 import java.util.*
 
@@ -344,9 +343,6 @@ class Tooltip private constructor(private val context: Context, builder: Builder
             viewContainer.measureAllChildren = true
             viewContainer.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
 
-            Timber.i("viewContainer size: ${viewContainer.measuredWidth}, ${viewContainer.measuredHeight}")
-            Timber.i("contentView size: ${contentView.measuredWidth}, ${contentView.measuredHeight}")
-
             mTextView.addOnAttachStateChangeListener {
                 onViewAttachedToWindow { _: View?, _: View.OnAttachStateChangeListener ->
                     mAnimator?.start()
@@ -385,7 +381,6 @@ class Tooltip private constructor(private val context: Context, builder: Builder
 
         val gravity = gravities.removeAt(0)
 
-        Timber.i("findPosition. $gravity, offset: $offset")
 
         val displayFrame = Rect()
         val anchorPosition = intArrayOf(0, 0)
@@ -423,14 +418,10 @@ class Tooltip private constructor(private val context: Context, builder: Builder
         anchorPosition[0] += offset.x
         anchorPosition[1] += offset.y
 
-        Timber.d("anchorPosition: ${anchorPosition[0]}, ${anchorPosition[1]}")
-        Timber.d("centerPosition: $centerPosition")
-        Timber.d("displayFrame: $displayFrame")
 
         val w: Int = mContentView.measuredWidth
         val h: Int = mContentView.measuredHeight
 
-        Timber.v("contentView size: $w, $h")
 
         val contentPosition = Point()
         val arrowPosition = Point()
@@ -479,9 +470,6 @@ class Tooltip private constructor(private val context: Context, builder: Builder
             }
         }
 
-        Timber.d("arrowPosition: $arrowPosition")
-        Timber.d("centerPosition: $centerPosition")
-        Timber.d("contentPosition: $contentPosition")
 
         if (fitToScreen) {
             val finalRect = Rect(
@@ -491,7 +479,6 @@ class Tooltip private constructor(private val context: Context, builder: Builder
                     contentPosition.y + h
             )
             if (!displayFrame.rectContainsWithTolerance(finalRect, mSizeTolerance.toInt())) {
-                Timber.e("content won't fit! $displayFrame, $finalRect")
                 return findPosition(parent, anchor, offset, gravities, params, fitToScreen)
             }
         }
@@ -535,7 +522,6 @@ class Tooltip private constructor(private val context: Context, builder: Builder
     @Suppress("SpellCheckingInspection")
     fun offsetBy(xoff: Float, yoff: Float) {
         if (isShowing && mPopupView != null && mCurrentPosition != null) {
-            Timber.i("offsetBy($xoff, $yoff)")
             mCurrentPosition!!.offsetBy(xoff, yoff)
 
             mContentView.translationX = mCurrentPosition!!.contentPointX
@@ -551,7 +537,6 @@ class Tooltip private constructor(private val context: Context, builder: Builder
     @Suppress("SpellCheckingInspection")
     fun offsetTo(xoff: Float, yoff: Float) {
         if (isShowing && mPopupView != null && mCurrentPosition != null) {
-            Timber.i("offsetTo($xoff, $yoff)")
             mCurrentPosition!!.offsetTo(xoff, yoff)
 
             mContentView.translationX = mCurrentPosition!!.contentPointX
@@ -573,7 +558,6 @@ class Tooltip private constructor(private val context: Context, builder: Builder
     private fun setupListeners(anchorView: View) {
         anchorView.addOnAttachStateChangeListener {
             onViewDetachedFromWindow { view: View?, listener: View.OnAttachStateChangeListener ->
-                Timber.i("anchorView detached from parent")
                 view?.removeOnAttachStateChangeListener(listener)
                 dismiss()
             }
@@ -641,7 +625,6 @@ class Tooltip private constructor(private val context: Context, builder: Builder
     }
 
     fun hide() {
-        Timber.i("hide")
         if (!isShowing) return
         fadeOut()
     }
@@ -651,7 +634,6 @@ class Tooltip private constructor(private val context: Context, builder: Builder
             removeListeners(mAnchorView?.get())
             removeCallbacks()
             windowManager.removeView(mPopupView)
-            Timber.v("dismiss: $mPopupView")
             mPopupView = null
             isShowing = false
             isVisible = false
@@ -721,7 +703,6 @@ class Tooltip private constructor(private val context: Context, builder: Builder
             if (changed) {
                 val out = intArrayOf(-1, -1)
                 getLocationOnScreen(out)
-                Timber.v("globalVisibleRect: ${out[0]}, ${out[1]}")
 
                 offsetTopAndBottom(-out[1])
             }
@@ -740,7 +721,6 @@ class Tooltip private constructor(private val context: Context, builder: Builder
                 } else if (event.action == KeyEvent.ACTION_UP) {
                     val state = keyDispatcherState
                     if (state != null && state.isTracking(event) && !event.isCanceled) {
-                        Timber.v("Back pressed, close the tooltip")
                         hide()
                         return true
                     }
@@ -755,8 +735,6 @@ class Tooltip private constructor(private val context: Context, builder: Builder
         override fun onTouchEvent(event: MotionEvent): Boolean {
             if (!isShowing || !isVisible || !mActivated) return false
 
-            Timber.i("onTouchEvent: $event")
-            Timber.d("event position: ${event.x}, ${event.y}")
 
             val r1 = Rect()
             mTextView.getGlobalVisibleRect(r1)
@@ -933,7 +911,6 @@ class Tooltip private constructor(private val context: Context, builder: Builder
 
         fun closePolicy(policy: ClosePolicy): Builder {
             this.closePolicy = policy
-            Timber.v("closePolicy: $policy")
             return this
         }
 

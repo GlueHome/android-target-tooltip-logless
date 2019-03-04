@@ -6,7 +6,6 @@ import android.content.Context
 import android.graphics.*
 import android.graphics.drawable.Drawable
 import android.view.animation.AccelerateDecelerateInterpolator
-import timber.log.Timber
 
 /**
  * Created by alessandro crugnola on 12/12/15.
@@ -198,7 +197,6 @@ class TooltipOverlayDrawable(context: Context, defStyleResId: Int) : Drawable() 
     }
 
     override fun onBoundsChange(bounds: Rect) {
-        Timber.i("onBoundsChange: $bounds")
         super.onBoundsChange(bounds)
         mOuterRadius = (Math.min(bounds.width(), bounds.height()) / 2).toFloat()
         mFirstAnimator.setFloatValues(0f, mOuterRadius)

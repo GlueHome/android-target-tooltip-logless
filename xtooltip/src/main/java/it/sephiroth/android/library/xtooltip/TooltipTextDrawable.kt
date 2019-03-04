@@ -7,7 +7,6 @@ import android.graphics.*
 import android.graphics.drawable.Drawable
 import android.os.Build
 import androidx.core.util.ObjectsCompat
-import timber.log.Timber
 import kotlin.math.floor
 
 /**
@@ -89,7 +88,6 @@ internal class TooltipTextDrawable(context: Context, builder: Tooltip.Builder) :
     }
 
     fun setAnchor(gravity: Tooltip.Gravity, padding: Int, point: PointF?) {
-        Timber.i("setAnchor($gravity, $padding, $point)")
         if (gravity != this.gravity || padding != this.padding || !ObjectsCompat.equals(this.point, point)) {
             this.gravity = gravity
             this.padding = padding
@@ -109,7 +107,6 @@ internal class TooltipTextDrawable(context: Context, builder: Tooltip.Builder) :
     }
 
     private fun calculatePath(outBounds: Rect) {
-        Timber.i("calculatePath: $outBounds, radius: $radius")
         val left = outBounds.left + padding
         val top = outBounds.top + padding
         val right = outBounds.right - padding
@@ -143,19 +140,16 @@ internal class TooltipTextDrawable(context: Context, builder: Tooltip.Builder) :
         if (gravity == Tooltip.Gravity.LEFT || gravity == Tooltip.Gravity.RIGHT) {
             if (maxY - minY < arrowWeight * 2) {
                 arrowWeight = floor((maxY - minY) / 2).toInt()
-                Timber.w("adjusted arrowWeight to $arrowWeight")
             }
         } else if (gravity == Tooltip.Gravity.BOTTOM || gravity == Tooltip.Gravity.TOP) {
             if (maxX - minX < arrowWeight * 2) {
                 arrowWeight = floor((maxX - minX) / 2).toInt()
-                Timber.w("adjusted arrowWeight to $arrowWeight")
             }
         }
 
         val drawPoint =
             isDrawPoint(left, top, right, bottom, maxY, maxX, minY, minX, tmpPoint, point!!, gravity, arrowWeight)
 
-        Timber.v("drawPoint: $drawPoint, point: $point, tmpPoint: $tmpPoint")
 
         clampPoint(left, top, right, bottom, tmpPoint)
 
@@ -244,7 +238,6 @@ internal class TooltipTextDrawable(context: Context, builder: Tooltip.Builder) :
             minX: Float, tmpPoint: PointF, point: PointF, gravity: Tooltip.Gravity?,
             arrowWeight: Int
         ): Boolean {
-            Timber.i("isDrawPoint: Rect($left, $top, $right, $bottom), x: [$minX, $maxX], y: [$minY, $maxY], point: $point, $arrowWeight")
             var drawPoint = false
             tmpPoint.set(point.x, point.y)
 
@@ -269,7 +262,6 @@ internal class TooltipTextDrawable(context: Context, builder: Tooltip.Builder) :
                     }
                 }
             }
-            Timber.v("tmpPoint: $tmpPoint")
             return drawPoint
         }
 
